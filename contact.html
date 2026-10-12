@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+    <h1 id="main-header">Contact Me</h1>
+
+    <nav class="navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">About Me</a>
+        <a class="nav-link" href="hobbies.html">Hobbies</a>
+        <a class="nav-link" href="favorites.html">Favorites</a>
+        <a class="nav-link" href="goals.html">Goals</a>
+        <a class="nav-link" href="contact.html">Contact Me</a>
+    </nav>
+
+    <hr>
+
+    <main>
+        <section class="profile-info">
+
+            <h2 class="section-title">Get in Touch</h2>
+
+            <p><b>Please fill out the form below to contact me:</b></p>
+
+            <form id="f" class="contact-form" onsubmit="sendEmail(event)">
+
+                <div class="form-group">
+                    <label class="form-label" for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <fieldset>
+                    <legend>Gender</legend>
+                    <label>
+                        <input type="radio" name="gender" value="Male"> Male
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="Female"> Female
+                    </label>
+                </fieldset>
+
+                <div class="form-group">
+                    <label class="form-label" for="strand">Class Strand:</label>
+                    <select id="strand" name="class strand">
+                        <option value="ICT">ICT</option>
+                        <option value="ABM">ABM</option>
+                        <option value="STEM">STEM</option>
+                        <option value="HUMSS">HUMSS</option>
+                        <option value="GAS">GAS</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <p id="s"></p>
+
+                <input type="hidden" name="title" value="Contact Me Form">
+                <input type="hidden" id="t" name="time">
+
+                <div style="margin-top: 15px;">
+                    <input class="btn primary" type="submit" value="Send Message">
+                    <input class="btn primary" type="reset" value="Clear Form">
+                </div>
+
+            </form>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Thank you for visiting my personal profile website!</p>
+    </footer>
+
+    <script>
+        emailjs.init({ publicKey: "Hw1dsddHp0OKp_m86" });
+
+        const sendEmail = (e) => {
+            e.preventDefault();
+            const form = document.getElementById("f");
+            const timeInput = document.getElementById("t");
+            const statusMsg = document.getElementById("s");
+
+            timeInput.value = new Date().toLocaleString();
+
+            emailjs.sendForm("service_zpzp7km", "template_hcepzrc", form)
+                .then(() => {
+                    statusMsg.innerHTML = "<span style='color: green; font-weight: bold;'>Successfully Sent!</span>";
+                    form.reset();
+                })
+                .catch(() => {
+                    statusMsg.innerHTML = "<span style='color: red; font-weight: bold;'>Failed to send message!</span>";
+                });
+        };
+    </script>
+
+</body>
+</html>
